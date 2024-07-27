@@ -25,11 +25,11 @@ pipeline {
                 sh "sudo docker run -d -p 80:80 --name webpage shivanium/webpage:${BUILD_NUMBER}  "           
             }
         }
-        stage('Deploy Webapp in dev env') {
-            steps {
-                sh 'sudo docker rm -f wewebpage'
-                sh "sudo docker run -d -p 80:80 --name webpage shivanium/webpage:${BUILD_NUMBER}  "           
-            }
-        }
+        // stage(' in dev env') {
+        //     steps {
+        //         sh 'sudo docker rm -f wewebpage'
+        //         sh "sudo docker run -d -p 80:80 --name webpage shivanium/webpage:${BUILD_NUMBER}  "           
+        //     }
+        // }
     }
 }
