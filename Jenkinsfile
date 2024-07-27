@@ -25,5 +25,11 @@ pipeline {
                 sh "sudo docker run -d -p 80:80 --name webpage shivanium/webpage:${BUILD_NUMBER}"           
             }
         }
+        stage('Deploy on k8s') {
+            steps {
+                sh 'minikube start'
+                sh "kubectl create deployment mywebpage --image=shivanium/webpage:${BUILD_NUMBER}" 
+            }
+        }
     }
 }
