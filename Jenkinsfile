@@ -14,22 +14,16 @@ pipeline {
         stage('Push Image to Docker Hub') {
             steps {
                 withCredentials([string(credentialsId: 'Dock_Pass', variable: 'docker_password')]) {
-                    sh "sudo docker login -u shivanium -p ${dock_pass}"
+                    sh "sudo docker login -u shivanium -p ${docker_password}"
                     sh "sudo docker push docker.io/shivanium/webpage:${BUILD_NUMBER}"
                 }             
             }
         }
         stage('Deploy Webapp in dev env') {
             steps {
-                sh 'sudo docker rm -f wewebpage'
-                sh "sudo docker run -d -p 80:80 --name webpage shivanium/webpage:${BUILD_NUMBER}  "           
+                sh 'sudo docker rm -f webpage'
+                sh "sudo docker run -d -p 80:80 --name webpage docker.io/shivanium/webpage:${BUILD_NUMBER}"           
             }
         }
-        // stage(' in dev env') {
-        //     steps {
-        //         sh 'sudo docker rm -f wewebpage'
-        //         sh "sudo docker run -d -p 80:80 --name webpage shivanium/webpage:${BUILD_NUMBER}  "           
-        //     }
-        // }
     }
 }
