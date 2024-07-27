@@ -8,15 +8,17 @@ pipeline {
         }
         stage('Build Docker OWN Image') {
             steps {
-                sh "sudo docker build -t webpage:${BUILD_NUMBER} ."
+                sh "sudo docker build -t docker.io/shivanium/webpage:${BUILD_NUMBER} ."
             }
         }
         stage('Push Image to Docker Hub') {
             steps {
-                withCredentials([string(credentialsId: 'Dock_Pass', variable: 'Dock_Pass')]) {
-                    sh " sudo docker login -u shivanium --p ${Dock_Pass}"
-                    sh "sudo docker push shivanium/webpage:${BUILD_NUMBER}"
-                }
+               withCredentials([string(credentialsId: 'Dock_Pass', variable: 'dock_pass')]) {
+
+                    sh "sudo docker login -u shivanium -p "
+                    sh "sudo docker push docker.io/shivanium/webpage:${BUILD_NUMBER}"
+                }             
+                
             }
         }
     }
