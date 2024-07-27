@@ -28,6 +28,7 @@ pipeline {
         stage('Deploy on k8s') {
             steps {
                 sh 'minikube start'
+                sh "kubectl delete deployment mywebpage " 
                 sh "kubectl create deployment mywebpage --image=shivanium/webpage:${BUILD_NUMBER}" 
                 sh "kubectl scale deployment mywebpage --replicas=5" 
             }
