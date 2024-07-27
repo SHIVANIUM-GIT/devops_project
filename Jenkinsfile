@@ -8,7 +8,7 @@ pipeline {
         }
         stage('Build dokcer OWN Image') {
             steps {
-                sh "sudo docker build -t webpage ."
+                sh "sudo docker build -t webpage:${BUILD_NUMBER} ."
             }
         }
     }
