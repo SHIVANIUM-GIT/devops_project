@@ -14,7 +14,7 @@ pipeline {
         stage('Push Image to Docker Hub') {
             steps {
                 withCredentials([string(credentialsId: 'Dock_Pass', variable: 'Dock_Pass')]) {
-                    sh "echo ${Dock_Pass} | sudo docker login -u shivanium --password-stdin"
+                    sh " sudo docker login -u shivanium --p ${Dock_Pass}"
                     sh "sudo docker push docker.io/shivanium/webpage:${BUILD_NUMBER}"
                 }
             }
